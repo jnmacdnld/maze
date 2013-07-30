@@ -1,10 +1,14 @@
+#pragma once
+
 #include "Arduino.h"
 
 #define MAZE_STRING_LENGTH 33
+#define MAZE_STRING_LENGTH_NULL_T (MAZE_STRING_LENGTH + 1)
 
 class MazeTextfileProcessor {
   public:
-    static uint16_t horizontalWallStringToInt(String string) {
+    static uint16_t horizontalWallStringToInt(
+                                      char string[MAZE_STRING_LENGTH_NULL_T]) {
       //checkIsValidHorizontalWallString(string);
 
       uint16_t wallInt;
@@ -12,7 +16,7 @@ class MazeTextfileProcessor {
       uint8_t stringIndex = 1;
 
       while ( stringIndex < MAZE_STRING_LENGTH && wallIntIndex < 16 ) {
-        char wallChar = string.charAt(stringIndex);
+        char wallChar = string[stringIndex];
         bool isWall = wallChar == '-';
         
         bitWrite(wallInt, wallIntIndex, isWall);
@@ -24,8 +28,9 @@ class MazeTextfileProcessor {
       return wallInt;
     }
 
-    static String intToHorizontalWallString(uint16_t wallInt) {
-      String wallString = "+ + + + + + + + + + + + + + + + +";
+    static void setStringFromHorizontalWallInt(
+                                char (&wallString)[MAZE_STRING_LENGTH_NULL_T],
+                                uint16_t wallInt) {
       uint8_t wallIntIndex = 0;
       uint8_t stringIndex = 1;
 
@@ -33,17 +38,16 @@ class MazeTextfileProcessor {
         bool isWall = bitRead(wallInt, wallIntIndex);
         
         if (isWall) {
-          wallString.setCharAt(stringIndex, '-');
+          wallString[stringIndex] = '-';
         }
 
         wallIntIndex++;
         stringIndex += 2;
       }
-
-      return wallString;
     }
 
-    static void setIntArrayFromVerticalWallString(uint16_t (&arr)[15], 
+    // FIXME: Replace String with char arrays
+/*    static void setIntArrayFromVerticalWallString(uint16_t (&arr)[15], 
                                                   String string,
                                                   uint8_t row) {
       uint8_t col = 0;
@@ -78,7 +82,9 @@ class MazeTextfileProcessor {
       }
 
       return string;
-    }
+    }*/
+
+    // static uint16_t verticalWallIntArrayFromStringArray(String )
 
   private:
     /*
