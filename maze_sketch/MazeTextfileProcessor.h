@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Arduino.h"
+#include <string.h>
 
 #define MAZE_STRING_LENGTH 33
 #define MAZE_STRING_LENGTH_NULL_T (MAZE_STRING_LENGTH + 1)
@@ -9,7 +10,7 @@ class MazeTextfileProcessor {
   public:
     static uint16_t horizontalWallStringToInt(
                                       char string[MAZE_STRING_LENGTH_NULL_T]) {
-      //checkIsValidHorizontalWallString(string);
+      // checkIsValidHorizontalWallString(string);
 
       uint16_t wallInt;
       uint8_t wallIntIndex = 0;
@@ -28,9 +29,11 @@ class MazeTextfileProcessor {
       return wallInt;
     }
 
-    static void setStringFromHorizontalWallInt(
+    static void initStringFromHorizontalWallInt(
                                 char (&wallString)[MAZE_STRING_LENGTH_NULL_T],
                                 uint16_t wallInt) {
+      strcpy(wallString, "+ + + + + + + + + + + + + + + + +");
+      
       uint8_t wallIntIndex = 0;
       uint8_t stringIndex = 1;
 
@@ -47,14 +50,15 @@ class MazeTextfileProcessor {
     }
 
     // FIXME: Replace String with char arrays
-/*    static void setIntArrayFromVerticalWallString(uint16_t (&arr)[15], 
-                                                  String string,
-                                                  uint8_t row) {
+    static void setIntArrayFromVerticalWallString(
+                                    uint16_t (&arr)[15], 
+                                    char (&string)[MAZE_STRING_LENGTH_NULL_T],
+                                    uint8_t row) {
       uint8_t col = 0;
       uint8_t stringIndex = 2;
 
       while ( stringIndex < MAZE_STRING_LENGTH && col < 15 ) {
-        char wallChar = string.charAt(stringIndex);
+        char wallChar = string[stringIndex];
         bool isWall = wallChar == '|';
         
         bitWrite(arr[col], row, isWall);
@@ -64,25 +68,25 @@ class MazeTextfileProcessor {
       }
     }
 
-    static String intArrayToVerticalWallString(uint16_t (&arr)[15],
-                                               uint8_t row) {
+    static void initVerticalWallStringFromIntArray(
+                                      char (&string)[MAZE_STRING_LENGTH_NULL_T],
+                                      uint16_t (&arr)[15],
+                                      uint8_t row) {
       uint8_t col = 0;
       uint8_t stringIndex = 2;
-      String string = "|                               |";
+      strcpy(string, "|                               |");
 
       while ( stringIndex < MAZE_STRING_LENGTH && col < 15 ) {
         bool isWall = bitRead(arr[col], row);
         
         if (isWall) {
-          string.setCharAt(stringIndex, '|');
+          string[stringIndex] =  '|';
         }
 
         col++;
         stringIndex += 2;
       }
-
-      return string;
-    }*/
+    }
 
     // static uint16_t verticalWallIntArrayFromStringArray(String )
 
