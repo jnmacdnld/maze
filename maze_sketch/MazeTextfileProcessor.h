@@ -26,21 +26,13 @@ class MazeTextfileProcessor {
                                       uint16_t (&arr)[15],
                                       uint8_t row);
 
-    /*static void initVerticalWallIntArrayFromStringArray(
-                                uint8_t (&intArr)[15],
-                                char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]) {
-      for (uint8_t i = 0; i < 15; i++) {
-        setIntArrayFromVerticalWallString(intArr, strArr[i], i);
-      }
-    }
+    static void initVerticalWallIntArrayFromStringArray(
+                                uint16_t (&intArr)[15],
+                                char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]);
 
     static void initVerticalWallStringArrFromIntArr(
                                   char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T],
-                                  uint8_t (&intArr)[15]) {
-      for (uint8_t i = 0; i < 15; i++) {
-        initVerticalWallStringFromIntArray(strArr[i], intArr, i);
-      }
-    }*/
+                                  uint16_t (&intArr)[15]);
 
   private:
     /*
@@ -63,4 +55,4 @@ class MazeTextfileProcessor {
     */
 };
  
-#endif /* end of include guard: MAZETEXTFILEPROCESSOR_H */
+#endif /* MAZETEXTFILEPROCESSOR_H */

@@ -78,3 +78,19 @@ void MazeTextfileProcessor::initVerticalWallStringFromIntArray(
     stringIndex += 2;
   }
 }
+
+void MazeTextfileProcessor::initVerticalWallIntArrayFromStringArray(
+                            uint16_t (&intArr)[15],
+                            char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]) {
+  for (uint8_t i = 0; i < 15; i++) {
+    setIntArrayFromVerticalWallString(intArr, strArr[i], i);
+  }
+}
+
+void MazeTextfileProcessor::initVerticalWallStringArrFromIntArr(
+                                  char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T],
+                                  uint16_t (&intArr)[15]) {
+  for (uint8_t i = 0; i < 15; i++) {
+    initVerticalWallStringFromIntArray(strArr[i], intArr, i);
+  }
+}
