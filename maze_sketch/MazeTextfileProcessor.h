@@ -49,7 +49,6 @@ class MazeTextfileProcessor {
       }
     }
 
-    // FIXME: Replace String with char arrays
     static void setIntArrayFromVerticalWallString(
                                     uint16_t (&arr)[15], 
                                     char (&string)[MAZE_STRING_LENGTH_NULL_T],
@@ -88,7 +87,21 @@ class MazeTextfileProcessor {
       }
     }
 
-    // static uint16_t verticalWallIntArrayFromStringArray(String )
+    /*static void initVerticalWallIntArrayFromStringArray(
+                                uint8_t (&intArr)[15],
+                                char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]) {
+      for (uint8_t i = 0; i < 15; i++) {
+        setIntArrayFromVerticalWallString(intArr, strArr[i], i);
+      }
+    }
+
+    static void initVerticalWallStringArrFromIntArr(
+                                  char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T],
+                                  uint8_t (&intArr)[15]) {
+      for (uint8_t i = 0; i < 15; i++) {
+        initVerticalWallStringFromIntArray(strArr[i], intArr, i);
+      }
+    }*/
 
   private:
     /*
