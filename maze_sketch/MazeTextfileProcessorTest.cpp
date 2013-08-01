@@ -1,5 +1,3 @@
-#pragma once
-
 #include "MazeTextfileProcessor.h"
 #include <string.h>
 #include <Arduino.h>
