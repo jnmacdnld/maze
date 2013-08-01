@@ -2,11 +2,7 @@
 #include <ArduinoUnit.h>
 
 void setup() {
-  Serial.begin(9600);
-
-  Serial.println("Begin");
-
-  
+  Serial.begin(9600);  
   /*char wallStrArr[15][MAZE_STRING_LENGTH_NULL_T] =
     {
       "| |   | |     | | |             |",

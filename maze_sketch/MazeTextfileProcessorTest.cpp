@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MazeTextfileProcessor.cpp"
+#include "MazeTextfileProcessor.h"
 #include <string.h>
 #include <Arduino.h>
 #include <ArduinoUnit.h>
