@@ -1,16 +1,16 @@
 #!/usr/bin/make
-# makefile for the arduino due.
+# Makefile for the arduino due.
 # 
-# modified for windows (you will need the GNU utilities, e.g. as they come with WinAVR, which  automatically installs and addes them to you path)
-# includes ethernet libraries.
+# Modified for windows (you will need the GNU utilities, e.g. as they come with 
+# WinAVR, which  automatically installs and addes them to you path).
+# Includes ethernet libraries.
 #
 # USAGE: put this file in the same dir as your .ino file is.
 # configure the PORT variable and ADIR at the top of the file
 # to match your local configuration.
 # Type make upload to compile and upload.
-# Type make monitor to watch the serial port with gnu screen.
 #
-# TODO: split into user specific settings and the rest
+# TODO: Split into user specific settings and the rest
 #
 # LICENSE: GPLv2 or later (at your option)
 #
@@ -19,33 +19,45 @@
 # By Paul Dreik 20130503 http://www.pauldreik.se/
 
 
-#user specific settings:
-#where to find the IDE
+# Settings
+
+# Path to the "hardware" directory of the Arduino IDE
+# (ex: C:/arduino-1.5.2/hardware)
 ADIR:=C:/Users/John/Documents/arduino_1.5.2/hardware
-#which serial port to use (add a file with SUBSYSTEMS=="usb", ATTRS{product}=="Arduino Due Prog. Port", ATTRS{idProduct}=="003d", ATTRS{idVendor}=="2341", SYMLINK+="arduino_due" in /etc/udev/rules.d/ to get this working). for windows, name the port where your arduino is, e.g. COM9
+
+# The serial port which you have connected the Arduino to (ex: COM4)
 PORT:=COM26
-#if we want to verify the bossac upload, define this to -v
+
+# Define this to "-v" to verify that the upload was successful
 VERIFY:=-v
 
+# That's it! You can run "make upload" to compile and upload your sketch
+# to the Arduino. The rest of this is some technical stuff.
 
-#then some general settings. They should not be necessary to modify.
+# Then some general settings. They should not be necessary to modify.
 CXX:=$(ADIR)/tools/g++_arm_none_eabi/bin/arm-none-eabi-g++
 CC:=$(ADIR)/tools/g++_arm_none_eabi/bin/arm-none-eabi-gcc
 C:=$(CC)
 SAM:=arduino/sam
 CMSIS:=arduino/sam/system/CMSIS
 LIBSAM:=arduino/sam/system/libsam
-# for windows, we compile in an subdirectory of the current dir. oooh, always run from the same place...:
-#TMPDIR:=$(PWD)/build
+
+# For windows, we compile in an subdirectory of the current dir. oooh, always run from the same place...:
+# TMPDIR:=$(PWD)/build
 TMPDIR:=./build
 AR:=$(ADIR)/tools/g++_arm_none_eabi/bin/arm-none-eabi-ar
 
 
-#all these values are hard coded and should maybe be configured somehow else,
-#like olikraus does in his makefile.
+# All these values are hard coded and should maybe be configured somehow else,
+# like olikraus does in his makefile.
 DEFINES:=-Dprintf=iprintf -DF_CPU=84000000L -DARDUINO=152 -D__SAM3X8E__ -DUSB_PID=0x003e -DUSB_VID=0x2341 -DUSBCON
 
-# where are included header files. we use the local directory for '#include "..."', while '#include <...> goes to the specified directories. The Arduino IDE include LIBSAM, but not  LIBSAM/Include saving a lot of trouble - udp.h from Atmel seems to be broken (it is nearly empty) thus leading to compile errors. by not including LIBSAM/Include the compiler finds the correct udp.h. thsu, we omit LIBSAM/Include as well.
+# Where are included header files. we use the local directory for '#include 
+# "..."', while '#include <...> goes to the specified directories. The Arduino 
+# IDE include LIBSAM, but not  LIBSAM/Include saving a lot of trouble - udp.h 
+# from Atmel seems to be broken (it is nearly empty) thus leading to compile 
+# errors. by not including LIBSAM/Include the compiler finds the correct udp.h. 
+# thus, we omit LIBSAM/Include as well.
 INCLUDES:=-iquote. 
 INCLUDES+=-I$(ADIR)/$(LIBSAM)
 INCLUDES+=-I$(ADIR)/$(CMSIS)/CMSIS/Include/
@@ -56,8 +68,8 @@ INCLUDES+=-I$(ADIR)/$(SAM)/libraries/SPI
 INCLUDES+=-I$(ADIR)/$(SAM)/libraries/Ethernet
 INCLUDES+=-I$(ADIR)/$(SAM)/libraries/Ethernet/utility
 
-#compilation flags common to both c and c++
-# replace -w with -v if you want to get a talkative compiler
+# Compilation flags common to both C and C++
+# Replace -w with -v if you want to get a talkative compiler
 COMMON_FLAGS:=-g -Os -w -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -mcpu=cortex-m3 -mthumb
 
 CFLAGS:=$(COMMON_FLAGS)
@@ -91,11 +103,11 @@ COREOBJS:=$(addsuffix .o,$(COREOBJS))
 default:
 	@echo default rule, does nothing. Try make compile or make upload.
 
-#This rule is good to just make sure stuff compiles, without having to wait
-#for bossac.
+# This rule is good to just make sure stuff compiles, without having to wait
+# for bossac.
 compile: $(TMPDIR)/$(PROJNAME).elf
 
-#This is a make rule template to create object files from the source files.
+# This is a make rule template to create object files from the source files.
 # arg 1=src file
 # arg 2=object file
 # arg 3= XX if c++, empty if c
@@ -103,12 +115,12 @@ define OBJ_template
 $(2): $(1)
 	$(C$(3)) -MD -c $(C$(3)FLAGS) $(DEFINES) $(INCLUDES) $(1) -o $(2)
 endef
-#now invoke the template both for c++ sources
+# Now invoke the template both for c++ sources
 $(foreach src,$(CORESRCXX), $(eval $(call OBJ_template,$(src),$(addsuffix .o,$(addprefix $(TMPDIR)/core/,$(notdir $(src)))),XX) ) )
-#...and for c sources:
+# ...and for c sources:
 $(foreach src,$(CORESRC), $(eval $(call OBJ_template,$(src),$(addsuffix .o,$(addprefix $(TMPDIR)/core/,$(notdir $(src)))),) ) )
 
-#and our own c++ sources
+# And our own c++ sources
 $(foreach src,$(MYSRCFILES), $(eval $(call OBJ_template,$(src),$(addsuffix .o,$(addprefix $(TMPDIR)/,$(notdir $(src)))),XX) ) )
 
 
@@ -123,18 +135,18 @@ $(TMPDIR):
 $(TMPDIR)/core:
 	mkdir -p $(TMPDIR)/core
 
-#creates the cpp file from the .ino file
+# Creates the cpp file from the .ino file
 $(NEWMAINFILE): $(PROJNAME).ino
 	cat $(ADIR)/arduino/sam/cores/arduino/main.cpp > $(NEWMAINFILE)
 	cat $(PROJNAME).ino >> $(NEWMAINFILE)
 	echo 'extern "C" void __cxa_pure_virtual() {while (true);}' >> $(NEWMAINFILE)
 
-#include the dependencies for our own files
+# Include the dependencies for our own files
 -include $(MYOBJFILES:.o=.d)
 
-#create the core library from the core objects. Do this EXACTLY as the
-#arduino IDE does it, seems *really* picky about this.
-#Sorry for the hard coding.
+# Create the core library from the core objects. Do this EXACTLY as the
+# Arduino IDE does it, seems *really* picky about this.
+# Sorry for the hard coding.
 $(TMPDIR)/core.a: $(TMPDIR)/core $(COREOBJS) $(COREOBJSXX)
 	$(AR) rcs $(TMPDIR)/core.a $(TMPDIR)/core/wiring_shift.c.o
 	$(AR) rcs $(TMPDIR)/core.a $(TMPDIR)/core/wiring_analog.c.o
@@ -173,22 +185,17 @@ $(TMPDIR)/core.a: $(TMPDIR)/core $(COREOBJS) $(COREOBJSXX)
 	$(AR) rcs $(TMPDIR)/core.a $(TMPDIR)/core/w5100.cpp.o
 	
 	
-#link our own object files with core to form the elf file
+# Link our own object files with core to form the elf file
 $(TMPDIR)/$(PROJNAME).elf: $(TMPDIR)/core.a $(TMPDIR)/core/syscalls_sam3.c.o $(MYOBJFILES)
 	$(CXX) -Os -Wl,--gc-sections -mcpu=cortex-m3 -T$(ADIR)/$(SAM)/variants/arduino_due_x/linker_scripts/gcc/flash.ld -Wl,-Map,$(NEWMAINFILE).map -o $@ -L$(TMPDIR) -lm -lgcc -mthumb -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align -Wl,--warn-unresolved-symbols -Wl,--start-group $(TMPDIR)/core/syscalls_sam3.c.o $(MYOBJFILES) $(ADIR)/$(SAM)/variants/arduino_due_x/libsam_sam3x8e_gcc_rel.a $(TMPDIR)/core.a -Wl,--end-group
 
-#copy from the hex to our bin file (why?)
+# Copy from the hex to our bin file (why?)
 $(TMPDIR)/$(PROJNAME).bin: $(TMPDIR)/$(PROJNAME).elf
 	$(ADIR)/tools/g++_arm_none_eabi/bin/arm-none-eabi-objcopy -O binary $< $@
 
-#upload to the arduino by first resetting it (stty) and the running bossac
+# Upload to the arduino by first resetting it and then running bossac
 upload: $(TMPDIR)/$(PROJNAME).bin
-#	stty -F $(PORT) cs8 1200 hupcl
-# above is the unix command, for windows the following will work:
 	mode $(PORT) baud=1200
 	cmd /c copy /b NUL $(PORT)
 	$(ADIR)/tools/bossac -p $(PORT) -U false -e -w $(VERIFY) -b $(TMPDIR)/$(PROJNAME).bin -R
 
-#to view the serial port with screen.
-monitor:
-	screen $(PORT) 115200
