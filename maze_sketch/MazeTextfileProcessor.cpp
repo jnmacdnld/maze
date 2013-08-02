@@ -1,4 +1,4 @@
-#include "MazeTextfileProcessor.h"
+#include "MazeTextfileProcessor.hpp"
 
 uint16_t MazeTextfileProcessor::horizontalWallStringToInt(
                                   char string[MAZE_STRING_LENGTH_NULL_T]) {

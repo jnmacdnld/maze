@@ -1,7 +1,15 @@
-#include "MazeTextfileProcessor.h"
+#include "MazeTextfileProcessor.hpp"
 #include <string.h>
 #include <Arduino.h>
-#include <ArduinoUnit.h>
+
+// Super hackish way of getting libraries since the current makefile doesn't 
+// include them automatically
+#include "libraries/arduinounit/ArduinoUnit.h"
+#include "libraries/arduinounit/utility/ArduinoUnit.cpp"
+#include "libraries/arduinounit/utility/FakeStream.cpp"
+#include "libraries/arduinounit/utility/FakeStream.h"
+#include "libraries/arduinounit/utility/FreeMemory.cpp"
+#include "libraries/arduinounit/utility/FreeMemory.h"
 
 test(mazeTextfileProcessorHorizWallEncodeDecode) {
 	char backToHorizontalWallString[MAZE_STRING_LENGTH_NULL_T];
