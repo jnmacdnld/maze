@@ -171,6 +171,6 @@ upload: $(TMPDIR)/$(PROJNAME).bin
 #	stty -F $(PORT) cs8 1200 hupcl
 # above is the unix command, for windows the following will work:
 	mode $(PORT) baud=1200
-	cmd /c copy /b NUL $(PORT)
+	# cmd /c copy /b NUL $(PORT)
 	sleep 1
 	$(ADIR)/tools/bossac -p $(PORT) -U false -e -w $(VERIFY) -b $(TMPDIR)/$(PROJNAME).bin -R

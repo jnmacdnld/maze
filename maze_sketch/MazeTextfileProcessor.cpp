@@ -2,14 +2,14 @@
 
 // Encode and decode horizontal walls
 uint16_t MazeTextfileProcessor::horizontalWallStringToInt(
-                                  char string[MAZE_STRING_LENGTH_NULL_T]) {
+                                       char string[MAZE_STR_LEN]) {
   // checkIsValidHorizontalWallString(string);
 
   uint16_t wallInt;
   uint8_t wallIntIndex = 0;
   uint8_t stringIndex = 1;
 
-  while ( stringIndex < MAZE_STRING_LENGTH && wallIntIndex < 16 ) {
+  while ( stringIndex < MAZE_LN_LEN && wallIntIndex < 16 ) {
     char wallChar = string[stringIndex];
     bool isWall = wallChar == '-';
     
@@ -23,14 +23,14 @@ uint16_t MazeTextfileProcessor::horizontalWallStringToInt(
 }
 
 void MazeTextfileProcessor::initStringFromHorizontalWallInt(
-                            char (&wallString)[MAZE_STRING_LENGTH_NULL_T],
-                            uint16_t wallInt) {
+                                  char (&wallString)[MAZE_STR_LEN],
+                                  uint16_t wallInt) {
   strcpy(wallString, "+ + + + + + + + + + + + + + + + +");
   
   uint8_t wallIntIndex = 0;
   uint8_t stringIndex = 1;
 
-  while ( stringIndex < MAZE_STRING_LENGTH && wallIntIndex < 16 ) {
+  while ( stringIndex < MAZE_LN_LEN && wallIntIndex < 16 ) {
     bool isWall = bitRead(wallInt, wallIntIndex);
     
     if (isWall) {
@@ -44,13 +44,13 @@ void MazeTextfileProcessor::initStringFromHorizontalWallInt(
 
 // Encode and decode vertical walls
 void MazeTextfileProcessor::setIntArrayFromVerticalWallString(
-                                uint16_t (&arr)[15], 
-                                char (&string)[MAZE_STRING_LENGTH_NULL_T],
-                                uint8_t row) {
+                                      uint16_t (&arr)[15], 
+                                      char (&string)[MAZE_STR_LEN],
+                                      uint8_t row) {
   uint8_t col = 0;
   uint8_t stringIndex = 2;
 
-  while ( stringIndex < MAZE_STRING_LENGTH && col < 15 ) {
+  while ( stringIndex < MAZE_LN_LEN && col < 15 ) {
     char wallChar = string[stringIndex];
     bool isWall = wallChar == '|';
     
@@ -62,14 +62,14 @@ void MazeTextfileProcessor::setIntArrayFromVerticalWallString(
 }
 
 void MazeTextfileProcessor::initVerticalWallStringFromIntArray(
-                                  char (&string)[MAZE_STRING_LENGTH_NULL_T],
-                                  uint16_t (&arr)[15],
-                                  uint8_t row) {
+                                      char (&string)[MAZE_STR_LEN],
+                                      uint16_t (&arr)[15],
+                                      uint8_t row) {
   uint8_t col = 0;
   uint8_t stringIndex = 2;
   strcpy(string, "|                               |");
 
-  while ( stringIndex < MAZE_STRING_LENGTH && col < 15 ) {
+  while ( stringIndex < MAZE_LN_LEN && col < 15 ) {
     bool isWall = bitRead(arr[col], row);
     
     if (isWall) {
@@ -83,17 +83,17 @@ void MazeTextfileProcessor::initVerticalWallStringFromIntArray(
 
 // Encode and decode vertical wall arrays
 void MazeTextfileProcessor::initVerticalWallIntArrayFromStringArray(
-                            uint16_t (&intArr)[15],
-                            char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]) {
-  for (uint8_t i = 0; i < 15; i++) {
+                                uint16_t (&intArr)[15],
+                                char (&strArr)[16][MAZE_STR_LEN]) {
+  for (uint8_t i = 0; i < 16; i++) {
     setIntArrayFromVerticalWallString(intArr, strArr[i], i);
   }
 }
 
 void MazeTextfileProcessor::initVerticalWallStringArrFromIntArr(
-                                  char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T],
+                                  char (&strArr)[16][MAZE_STR_LEN],
                                   uint16_t (&intArr)[15]) {
-  for (uint8_t i = 0; i < 15; i++) {
+  for (uint8_t i = 0; i < 16; i++) {
     initVerticalWallStringFromIntArray(strArr[i], intArr, i);
   }
 }
@@ -101,7 +101,7 @@ void MazeTextfileProcessor::initVerticalWallStringArrFromIntArr(
 // Encode and decode horizontal wall arrays
 void MazeTextfileProcessor::initHorizontalWallIntArrayFromStringArray(
                                 uint16_t (&intArr)[15],
-                                char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]) {
+                                char (&strArr)[15][MAZE_STR_LEN]) {
   for (uint8_t i = 0; i < 15; i++) {
     uint16_t wallInt = horizontalWallStringToInt(strArr[i]);
     intArr[i] = wallInt;
@@ -109,11 +109,24 @@ void MazeTextfileProcessor::initHorizontalWallIntArrayFromStringArray(
 }
 
 void MazeTextfileProcessor::initHorizontalWallStringArrayFromIntArray(
-                                  char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T],
+                                  char (&strArr)[15][MAZE_STR_LEN],
                                   uint16_t (&intArr)[15]) {
   for (uint8_t i = 0; i < 15; i++) {
-    char wallString[MAZE_STRING_LENGTH_NULL_T];
+    char wallString[MAZE_STR_LEN];
     initStringFromHorizontalWallInt(wallString, intArr[i]);
     strcpy(strArr[i], wallString);
   }
+}
+
+// Coordinates
+uint8_t MazeTextfileProcessor::coordinatesToInt(uint8_t row, uint8_t col) {
+  return (row * 16) + col;
+}
+
+uint8_t MazeTextfileProcessor::getRowFromInt(uint8_t integer) {
+  return integer / 16;
+}
+
+uint8_t MazeTextfileProcessor::getColFromInt(uint8_t integer) {
+  return integer % 16;
 }
