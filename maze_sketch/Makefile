@@ -25,7 +25,7 @@
 ADIR:=C:/Users/John/Documents/arduino_1.5.2/hardware
 
 # The serial port which you have connected the Arduino to (ex: COM4)
-PORT:=COM26
+PORT:=COM28
 
 # Define this to "-v" to verify that the upload was successful
 VERIFY:=-v

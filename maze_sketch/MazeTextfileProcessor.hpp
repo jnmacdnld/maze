@@ -9,6 +9,7 @@
 
 class MazeTextfileProcessor {
   public:
+    // Encode and decode horizontal walls
     static uint16_t horizontalWallStringToInt(
                                       char string[MAZE_STRING_LENGTH_NULL_T]);
 
@@ -16,6 +17,7 @@ class MazeTextfileProcessor {
                                 char (&wallString)[MAZE_STRING_LENGTH_NULL_T],
                                 uint16_t wallInt);
 
+    // Encode and decode vertical walls
     static void setIntArrayFromVerticalWallString(
                                     uint16_t (&arr)[15], 
                                     char (&string)[MAZE_STRING_LENGTH_NULL_T],
@@ -26,11 +28,21 @@ class MazeTextfileProcessor {
                                       uint16_t (&arr)[15],
                                       uint8_t row);
 
+    // Encode and decode vertical wall arrays
     static void initVerticalWallIntArrayFromStringArray(
                                 uint16_t (&intArr)[15],
                                 char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]);
 
     static void initVerticalWallStringArrFromIntArr(
+                                  char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T],
+                                  uint16_t (&intArr)[15]);
+
+    // Encode and decode horizontal wall arrays
+    static void initHorizontalWallIntArrayFromStringArray(
+                                uint16_t (&intArr)[15],
+                                char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]);
+
+    static void initHorizontalWallStringArrayFromIntArray(
                                   char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T],
                                   uint16_t (&intArr)[15]);
 

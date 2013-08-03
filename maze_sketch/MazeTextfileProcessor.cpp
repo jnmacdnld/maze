@@ -1,5 +1,6 @@
 #include "MazeTextfileProcessor.hpp"
 
+// Encode and decode horizontal walls
 uint16_t MazeTextfileProcessor::horizontalWallStringToInt(
                                   char string[MAZE_STRING_LENGTH_NULL_T]) {
   // checkIsValidHorizontalWallString(string);
@@ -41,6 +42,7 @@ void MazeTextfileProcessor::initStringFromHorizontalWallInt(
   }
 }
 
+// Encode and decode vertical walls
 void MazeTextfileProcessor::setIntArrayFromVerticalWallString(
                                 uint16_t (&arr)[15], 
                                 char (&string)[MAZE_STRING_LENGTH_NULL_T],
@@ -79,6 +81,7 @@ void MazeTextfileProcessor::initVerticalWallStringFromIntArray(
   }
 }
 
+// Encode and decode vertical wall arrays
 void MazeTextfileProcessor::initVerticalWallIntArrayFromStringArray(
                             uint16_t (&intArr)[15],
                             char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]) {
@@ -92,5 +95,25 @@ void MazeTextfileProcessor::initVerticalWallStringArrFromIntArr(
                                   uint16_t (&intArr)[15]) {
   for (uint8_t i = 0; i < 15; i++) {
     initVerticalWallStringFromIntArray(strArr[i], intArr, i);
+  }
+}
+
+// Encode and decode horizontal wall arrays
+void MazeTextfileProcessor::initHorizontalWallIntArrayFromStringArray(
+                                uint16_t (&intArr)[15],
+                                char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T]) {
+  for (uint8_t i = 0; i < 15; i++) {
+    uint16_t wallInt = horizontalWallStringToInt(strArr[i]);
+    intArr[i] = wallInt;
+  }
+}
+
+void MazeTextfileProcessor::initHorizontalWallStringArrayFromIntArray(
+                                  char (&strArr)[15][MAZE_STRING_LENGTH_NULL_T],
+                                  uint16_t (&intArr)[15]) {
+  for (uint8_t i = 0; i < 15; i++) {
+    char wallString[MAZE_STRING_LENGTH_NULL_T];
+    initStringFromHorizontalWallInt(wallString, intArr[i]);
+    strcpy(strArr[i], wallString);
   }
 }

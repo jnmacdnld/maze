@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 
-test(mazeTextfileProcessorHorizWallEncodeDecode) {
+test(MazeTextfileProcessorHorizWallEncodeDecode) {
 	char backToHorizontalWallString[MAZE_STRING_LENGTH_NULL_T];
 	char horizontalWallString[ ] = "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +";
 
@@ -16,7 +16,7 @@ test(mazeTextfileProcessorHorizWallEncodeDecode) {
 	assertTrue(strcmp(horizontalWallString, backToHorizontalWallString) == 0);
 }
 
-test(mazeTextfileProcessorVertWallEncodeDecode) {
+test(MazeTextfileProcessorVertWallEncodeDecode) {
 	char verticalWallString[ ] = "| |   | |     | | |             |";
 	char backToVerticalWallString[MAZE_STRING_LENGTH_NULL_T];
 
@@ -63,6 +63,42 @@ test(MazeTextfileProcessorVertWallArrEncodeDecode) {
 
 	MazeTextfileProcessor::initVerticalWallStringArrFromIntArr(backToStrArr,
 																														 wallArr);
+
+	for (uint8_t i = 0; i < 15; i++) {
+		assertTrue(strcmp(wallStrArr[i], backToStrArr[i]) == 0);
+	}
+}
+
+test(MazeTextfileProcessorHorzWallArrEncodeDecode) {
+	char wallStrArr[15][MAZE_STRING_LENGTH_NULL_T] =
+	  {
+	    "+ +-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
+	    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
+	    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
+	    "+-+-+ +-+-+-+-+-+-+-+ + +-+ +-+ +",
+	    "+-+-+-+ +-+-+-+-+-+-+ + +-+ +-+ +",
+
+	    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
+	    "+-+-+ + +-+ +-+-+-+-+ + +-+ +-+ +",
+	    "+-+-+ + +-+-+-+-+-+-+ +-+-+ +-+ +",
+	    "+-+-+ + +-+-+ +-+-+-+ + +-+ +-+ +",
+	    "+-+-+ + +-+-+-+-+-+-+-+ +-+ +-+ +",
+
+	    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
+	    "+ +-+ + +-+-+ +-+-+-+ + +-+ +-+ +",
+	    "+-+-+-+ +-+-+-+-+-+-+ + +-+ +-+ +",
+	    "+-+-+ + + +-+-+-+-+ + + +-+ +-+ +",
+	    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +"
+	  };
+
+	uint16_t wallArr[15];
+	char backToStrArr[15][MAZE_STRING_LENGTH_NULL_T];
+
+	MazeTextfileProcessor::initHorizontalWallIntArrayFromStringArray(wallArr,
+																																   wallStrArr);
+
+	MazeTextfileProcessor::initHorizontalWallStringArrayFromIntArray(backToStrArr,
+																														   wallArr);
 
 	for (uint8_t i = 0; i < 15; i++) {
 		assertTrue(strcmp(wallStrArr[i], backToStrArr[i]) == 0);
