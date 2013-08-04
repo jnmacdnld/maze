@@ -34,6 +34,8 @@ VERIFY:=-v
 # sub-directories in the library directory, you will have to include these also.
 MY_LIBS:=C:/Users/John/Documents/Arduino/libraries/ArduinoUnit C:/Users/John/Documents/Arduino/libraries/ArduinoUnit/utility
 
+# End of User-Specific Settings
+
 #then some general settings. They should not be necessary to modify.
 CXX:=$(ADIR)/tools/g++_arm_none_eabi/bin/arm-none-eabi-g++
 CC:=$(ADIR)/tools/g++_arm_none_eabi/bin/arm-none-eabi-gcc
@@ -42,7 +44,7 @@ SAM:=arduino/sam/
 CMSIS:=arduino/sam/system/CMSIS/
 LIBSAM:=arduino/sam/system/libsam
 # for windows, we compile in an subdirectory of the current dir. oooh, always run from the same place...:
-#TMPDIR:=$(PWD)/build
+# TMPDIR:=$(PWD)/build
 TMPDIR:=./build
 AR:=$(ADIR)/tools/g++_arm_none_eabi/bin/arm-none-eabi-ar
 
@@ -174,3 +176,4 @@ upload: $(TMPDIR)/$(PROJNAME).bin
 	# cmd /c copy /b NUL $(PORT)
 	sleep 1
 	$(ADIR)/tools/bossac -p $(PORT) -U false -e -w $(VERIFY) -b $(TMPDIR)/$(PROJNAME).bin -R
+
