@@ -1,5 +1,5 @@
-#ifndef MazeTextProcessor_H
-#define MazeTextProcessor_H
+#ifndef MAZE_TEXT_PROCESSOR_HPP
+#define MAZE_TEXT_PROCESSOR_HPP
  
 #include "Arduino.h"
 #include <string.h>
@@ -79,4 +79,4 @@ class MazeTextProcessor {
     */
 };
  
-#endif /* MazeTextProcessor_H */
+#endif /* MAZE_TEXT_PROCESSOR_HPP */

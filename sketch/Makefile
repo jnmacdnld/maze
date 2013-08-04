@@ -52,7 +52,7 @@ AR:=$(ADIR)/tools/g++_arm_none_eabi/bin/arm-none-eabi-ar
 #like olikraus does in his makefile.
 DEFINES:=-Dprintf=iprintf -DF_CPU=84000000L -DARDUINO=152 -D__SAM3X8E__ -DUSB_PID=0x003e -DUSB_VID=0x2341 -DUSBCON
 
-INCLUDES:=-I$(ADIR)/$(LIBSAM) -I$(ADIR)/$(CMSIS)/CMSIS/Include/ -I$(ADIR)/$(CMSIS)/Device/ATMEL/
+INCLUDES := -I$(ADIR)/$(LIBSAM) -I$(ADIR)/$(CMSIS)/CMSIS/Include/ -I$(ADIR)/$(CMSIS)/Device/ATMEL/
 INCLUDES += -I$(ADIR)/$(SAM)/cores/arduino -I$(ADIR)/$(SAM)/variants/arduino_due_x
 INCLUDES += $(patsubst %,-I%,$(MY_LIBS))
 

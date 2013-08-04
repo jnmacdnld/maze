@@ -1,5 +1,5 @@
-#ifndef MAZEMAP_H
-#define MAZEMAP_H
+#ifndef MAZEMAP_HPP
+#define MAZEMAP_HPP
 /*
 #include "Direction.hpp"
  
@@ -18,4 +18,4 @@ class MazeMap {
     uint8_t goal;
 }
 */
-#endif /* MAZEMAP_H */
+#endif /* MAZEMAP_HPP */

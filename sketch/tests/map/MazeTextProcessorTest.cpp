@@ -1,4 +1,4 @@
-#include "MazeTextProcessor.hpp"
+#include "../../map/MazeTextProcessor.hpp"
 #include <string.h>
 #include <Arduino.h>
 #include <ArduinoUnit.h>
