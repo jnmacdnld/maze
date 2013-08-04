@@ -1,5 +1,5 @@
-#ifndef MAZETEXTFILEPROCESSOR_H
-#define MAZETEXTFILEPROCESSOR_H
+#ifndef MazeTextProcessor_H
+#define MazeTextProcessor_H
  
 #include "Arduino.h"
 #include <string.h>
@@ -11,7 +11,7 @@
 
 #define GOAL_CHAR 'G'                  // Char that marks the goal in maze text
 
-class MazeTextfileProcessor {
+class MazeTextProcessor {
   public:
     // Encode and decode horizontal walls
     static uint16_t horizontalWallStringToInt(
@@ -79,4 +79,4 @@ class MazeTextfileProcessor {
     */
 };
  
-#endif /* MAZETEXTFILEPROCESSOR_H */
+#endif /* MazeTextProcessor_H */

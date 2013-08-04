@@ -1,9 +1,9 @@
-#include "MazeTextfileProcessor.hpp"
+#include "MazeTextProcessor.hpp"
 #include <string.h>
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 
-#define MTP MazeTextfileProcessor // Abbreviation for more concise code
+#define MTP MazeTextProcessor // Abbreviation for more concise code
 
 test(horizWallEncode) {
   char backToHorizontalWallString[MAZE_STR_LEN];
