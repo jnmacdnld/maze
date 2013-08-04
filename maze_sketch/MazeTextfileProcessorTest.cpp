@@ -116,9 +116,9 @@ test(coordsEncode) {
 }
 
 // Goal
-/*
+
 test(findGoal) {
-  char verticalWalls[15][MAZE_STR_LEN] = 
+  char verticalWalls[16][MAZE_STR_LEN] = 
     {
       "| |   | |     | | |             |",
       "| |   |       | | |             |",
@@ -136,6 +136,8 @@ test(findGoal) {
       "| |   | |     |   |             |",
       "| |   | |     | | |             |",
       "|     |       | | |             |",
+      "| |   | |     | | |             |",
+
       "| |   | |     | | |             |"
     };
 
@@ -144,8 +146,9 @@ test(findGoal) {
   uint8_t goalRow = MTP::getRowFromInt(goal);
   uint8_t goalCol = MTP::getColFromInt(goal);
 
-  char goalChar = verticalWalls[goalRow][goalCol];
+  char goalChar = verticalWalls[goalRow][(goalCol * 2) + 1];
+
+  assertNotEqual(goal, 0);
 
   assertEqual(goalChar, GOAL_CHAR);
 }
-*/

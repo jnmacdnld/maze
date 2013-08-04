@@ -130,3 +130,18 @@ uint8_t MazeTextfileProcessor::getRowFromInt(uint8_t integer) {
 uint8_t MazeTextfileProcessor::getColFromInt(uint8_t integer) {
   return integer % 16;
 }
+
+// Goal
+uint8_t MazeTextfileProcessor::getGoal(
+                                     char (&vertWallStrArr)[16][MAZE_STR_LEN]) {
+  for (uint8_t i = 0; i < 16; i++) {
+    for (uint8_t k = 1; k < MAZE_STR_LEN - 1; k += 2) {
+      if (vertWallStrArr[i][k] == GOAL_CHAR) {
+        uint8_t col = k / 2;
+        return MazeTextfileProcessor::coordinatesToInt(i, col);
+      }
+    }
+  }
+
+  return 0;
+}
