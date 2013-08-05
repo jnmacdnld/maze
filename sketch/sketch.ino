@@ -1,8 +1,8 @@
 #line 2 "maze_sketch.ino"
 #include <ArduinoUnit.h>
 
-#include "tests/map/MazeTextProcessorTest.cpp"
-#include "map/MazeTextProcessor.cpp"
+#include "tests/map/MazeTextParserTest.cpp"
+#include "map/MazeTextParser.cpp"
 
 void setup() {
   Serial.begin(9600);

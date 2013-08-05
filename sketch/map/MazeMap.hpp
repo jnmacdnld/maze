@@ -1,6 +1,6 @@
 #ifndef MAZEMAP_HPP
 #define MAZEMAP_HPP
-/*
+
 #include "Direction.hpp"
  
 class MazeMap {
@@ -16,6 +16,6 @@ class MazeMap {
     uint16_t horizWalls[15];
     uint16_t vertWalls[15];
     uint8_t goal;
-}
-*/
+};
+
 #endif /* MAZEMAP_HPP */
