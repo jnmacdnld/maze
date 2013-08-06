@@ -1,7 +1,14 @@
 #ifndef MAZEMAP_HPP
 #define MAZEMAP_HPP
 
-#include "Direction.hpp"
+typedef uint8_t cell_t;
+
+enum dir_t {
+  NORTH,
+  EAST,
+  SOUTH,
+  WEST
+};
  
 class MazeMap {
   public:
@@ -9,7 +16,7 @@ class MazeMap {
             uint16_t (&vertWalls)[15],
             uint8_t goal);
 
-    bool getIsObstructed(uint8_t node, Direction dir);
+    bool getIsObstructed(cell_t cell, dir_t dir);
 
     uint8_t getGoal();
 

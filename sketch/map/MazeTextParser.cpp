@@ -148,27 +148,27 @@ void _::setMazeTextFromHorzWallIntArr(
 }
 
 // Coordinates
-uint8_t _::coordinatesToInt(uint8_t row, uint8_t col) {
-  return (row * 16) + col;
+cell_t _::coordinatesToCell(uint8_t row, uint8_t col) {
+  return (cell_t) ( (row * 16) + col );
 }
 
-uint8_t _::getRowFromInt(uint8_t integer) {
-  return integer / 16;
+uint8_t _::getRowFromCell(cell_t cell) {
+  return cell / 16;
 }
 
-uint8_t _::getColFromInt(uint8_t integer) {
-  return integer % 16;
+uint8_t _::getColFromCell(cell_t cell) {
+  return cell % 16;
 }
 
 // Goal
-uint8_t _::getGoalFromMazeText(
+cell_t _::getGoalFromMazeText(
                            char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]) {
   for (uint8_t i = 1; i < NUM_MAZE_TEXT_STRS; i += 2) {
     for (uint8_t k = 1; k < MAZE_STR_LEN - 1; k += 2) {
       if (mazeText[i][k] == GOAL_CHAR) {
         uint8_t col = k / 2;
         uint8_t row = i / 2;
-        return coordinatesToInt(row, col);
+        return coordinatesToCell(row, col);
       }
     }
   }
@@ -209,8 +209,8 @@ void _::initMazeTextFromMazeMap(char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN
 
 void _::setMazeTextFromGoal(char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN],
                             uint8_t goal) {
-  uint8_t goalRow = getRowFromInt(goal);
-  uint8_t goalCol = getColFromInt(goal);
+  uint8_t goalRow = getRowFromCell(goal);
+  uint8_t goalCol = getColFromCell(goal);
 
   mazeText[(goalRow * 2) + 1][(goalCol * 2) + 1] = GOAL_CHAR;
 }

@@ -10,7 +10,7 @@ MazeMap::MazeMap(uint16_t (&horzWalls)[NUM_WALL_INTS],
   this->goal = goal;
 }
 
-bool MazeMap::getIsObstructed(uint8_t node, Direction dir) {
+bool MazeMap::getIsObstructed(cell_t cell, dir_t dir) {
 
 }
 

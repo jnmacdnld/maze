@@ -76,14 +76,14 @@ class MazeTextParser {
                              uint16_t (&intArr)[NUM_WALL_INTS]);
 
     // Coordinates
-    static uint8_t coordinatesToInt(uint8_t row, uint8_t col);
-    static uint8_t getRowFromInt(uint8_t integer);
-    static uint8_t getColFromInt(uint8_t integer);
+    static cell_t coordinatesToCell(uint8_t row, uint8_t col);
+    static uint8_t getRowFromCell(cell_t cell);
+    static uint8_t getColFromCell(cell_t cell);
 
     // Goal
     static uint8_t getGoalFromMazeText(
                             char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]);
-    
+
     static void setMazeTextFromGoal(char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN],
                                        uint8_t goal);
 

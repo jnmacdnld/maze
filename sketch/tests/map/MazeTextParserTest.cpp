@@ -105,14 +105,14 @@ test(horzWallArrEncode) {
 }
 
 // Coordinates
-#define testEncodeCoord(row, col) { \
-  uint8_t encodedInt = CLASS::coordinatesToInt(row, col); \
-  \
-  uint8_t decodedRow = CLASS::getRowFromInt(encodedInt); \
-  uint8_t decodedCol = CLASS::getColFromInt(encodedInt); \
-  \
-  assertEqual(row, decodedRow); \
-  assertEqual(col, decodedCol); \
+void testEncodeCoord(uint8_t row, uint8_t col) {
+  cell_t cell = CLASS::coordinatesToCell(row, col);
+  
+  uint8_t decodedRow = CLASS::getRowFromCell(cell);
+  uint8_t decodedCol = CLASS::getColFromCell(cell);
+  
+  assertEqual(row, decodedRow);
+  assertEqual(col, decodedCol);
 }
 
 test(coordsEncode) {
@@ -123,10 +123,10 @@ test(coordsEncode) {
 // Goal
 
 test(findGoalInMazeText) {
-  uint8_t goal = CLASS::getGoalFromMazeText(mazeText);
+  cell_t goal = CLASS::getGoalFromMazeText(mazeText);
 
-  uint8_t goalRow = CLASS::getRowFromInt(goal);
-  uint8_t goalCol = CLASS::getColFromInt(goal);
+  uint8_t goalRow = CLASS::getRowFromCell(goal);
+  uint8_t goalCol = CLASS::getColFromCell(goal);
 
   char goalChar = mazeText[(goalRow * 2) + 1][(goalCol * 2) + 1];
 
