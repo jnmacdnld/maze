@@ -7,7 +7,7 @@
 
 char mazeText[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN] = {
   "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+",
-  "|     | |     | | |       |     |",
+  "|  G  | |     | | |       |     |",
   "+-+-+ + +-+-+-+-+-+-+-+ +-+ +-+ +",
   "| |     |     |   |         |   |",
   "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
@@ -122,36 +122,13 @@ test(coordsEncode) {
 
 // Goal
 
-test(findGoal) {
-  char verticalWalls[16][MAZE_STR_LEN] = 
-    {
-      "| |   | |     | | |             |",
-      "| |   |       | | |             |",
-      "| |   | |     | | |             |",
-      "| |   | |     |   |         |   |",
-      "| |   | |     | | |             |",
-
-      "| |   | |     | | |             |",
-      "| |     |     | | |           | |",
-      "| |   | |     |   |   |       | |",
-      "| |   | |     | | |             |",
-      "| |   | |     | | |             |",
-
-      "| |   |       |G| |             |",
-      "| |   | |     |   |             |",
-      "| |   | |     | | |             |",
-      "|     |       | | |             |",
-      "| |   | |     | | |             |",
-
-      "| |   | |     | | |             |"
-    };
-
-  uint8_t goal = CLASS::getGoal(verticalWalls);
+test(findGoalInMazeText) {
+  uint8_t goal = CLASS::getGoalFromMazeText(mazeText);
 
   uint8_t goalRow = CLASS::getRowFromInt(goal);
   uint8_t goalCol = CLASS::getColFromInt(goal);
 
-  char goalChar = verticalWalls[goalRow][(goalCol * 2) + 1];
+  char goalChar = mazeText[(goalRow * 2) + 1][(goalCol * 2) + 1];
 
   assertNotEqual(goal, 0);
 

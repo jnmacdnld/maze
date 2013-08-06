@@ -28,7 +28,7 @@ ADIR:=C:/Users/John/Documents/arduino_1.5.2/hardware
 PORT:=COM28
 
 # Define this to "-v" to verify that the upload was successful
-VERIFY:=-v
+VERIFY:=
 
 # Space-separated paths to libraries you want to include. If there are 
 # sub-directories in the library directory, you will have to include these also.
@@ -175,7 +175,7 @@ upload: $(TMPDIR)/$(PROJNAME).bin
 	taskkill /F /IM putty.exe /T
 	mode $(PORT) baud=1200
 	# cmd /c copy /b NUL $(PORT)
-	# sleep 1
+	sleep 1
 	$(ADIR)/tools/bossac -p $(PORT) -U false -e -w $(VERIFY) -b $(TMPDIR)/$(PROJNAME).bin -R
 	"C:/Program Files (x86)/PuTTY/putty.exe" -load arduino
 

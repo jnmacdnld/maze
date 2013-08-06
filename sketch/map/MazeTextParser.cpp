@@ -161,12 +161,14 @@ uint8_t _::getColFromInt(uint8_t integer) {
 }
 
 // Goal
-uint8_t _::getGoal(char (&vertWallStrArr)[16][MAZE_STR_LEN]) {
-  for (uint8_t i = 0; i < 16; i++) {
+uint8_t _::getGoalFromMazeText(
+                           char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]) {
+  for (uint8_t i = 1; i < NUM_MAZE_TEXT_STRS; i += 2) {
     for (uint8_t k = 1; k < MAZE_STR_LEN - 1; k += 2) {
-      if (vertWallStrArr[i][k] == GOAL_CHAR) {
+      if (mazeText[i][k] == GOAL_CHAR) {
         uint8_t col = k / 2;
-        return coordinatesToInt(i, col);
+        uint8_t row = i / 2;
+        return coordinatesToInt(row, col);
       }
     }
   }
@@ -179,7 +181,7 @@ uint8_t _::getGoal(char (&vertWallStrArr)[16][MAZE_STR_LEN]) {
                             char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN]) {
   uint16_t vertWalls[NUM_WALL_INTS];
   uint16_t horzWalls[NUM_WALL_INTS];
-  uint8_t  goal = getGoal
+  uint8_t  goal = getGoalFromMazeText
 
   initVertWallIntArrFromMazeText(vertWalls, mazeText);
   initHorzWallIntArrFromMazeText(horzWalls, mazeText);
