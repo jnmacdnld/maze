@@ -37,13 +37,12 @@
 
 /*WALL ARRAY CONSTANTS*/
 // Number of integers in a array of wall integers
-#define NUM_WALL_INTS_IN_ARR 15         
+#define NUM_WALL_INTS 15         
 
 class MazeTextParser {
   public:
     // Encode and decode horizontal walls
-    static uint16_t horizontalWallStrToInt(
-                                        char string[MAZE_STR_LEN]);
+    static uint16_t horzWallStrToInt(char string[MAZE_STR_LEN]);
 
     static void initStrFromHorzWallInt(
                                   char (&wallStr)[MAZE_STR_LEN],
@@ -70,13 +69,13 @@ class MazeTextParser {
                              uint16_t (&intArr)[15]);
 
     // Encode and decode horizontal wall arrays
-    static void initHorzWallIntArrFromStrArr(
-                                 uint16_t (&intArr)[15],
-                                 char (&strArr)[15][MAZE_STR_LEN]);
+    static void initHorzWallIntArrFromMazeText(
+                          uint16_t (&intArr)[NUM_WALL_INTS],
+                          char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]);
 
-    static void initHorzWallStrArrFromIntArr(
-                                  char (&strArr)[15][MAZE_STR_LEN],
-                                  uint16_t (&intArr)[15]);
+    static void setMazeTextFromHorzWallIntArr(
+                             char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN],
+                             uint16_t (&intArr)[NUM_WALL_INTS]);
 
     // Coordinates
     static uint8_t coordinatesToInt(uint8_t row, uint8_t col);

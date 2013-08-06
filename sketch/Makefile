@@ -172,8 +172,10 @@ $(TMPDIR)/$(PROJNAME).bin: $(TMPDIR)/$(PROJNAME).elf
 upload: $(TMPDIR)/$(PROJNAME).bin
 #	stty -F $(PORT) cs8 1200 hupcl
 # above is the unix command, for windows the following will work:
+	taskkill /F /IM putty.exe /T
 	mode $(PORT) baud=1200
 	# cmd /c copy /b NUL $(PORT)
-	sleep 1
+	# sleep 1
 	$(ADIR)/tools/bossac -p $(PORT) -U false -e -w $(VERIFY) -b $(TMPDIR)/$(PROJNAME).bin -R
+	"C:/Program Files (x86)/PuTTY/putty.exe" -load arduino
 

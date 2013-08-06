@@ -41,15 +41,15 @@ char mazeText[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN] = {
 
   "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
   "| |   | | |   | | | |   |       |",
-  "+-+ + +-+ +-+-+-+-+-+-+-+-+-+-+-+"
+  "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+"
 };
 
-test(horizWallEncode) {
+test(horzWallEncode) {
   char backToHorzWallStr[MAZE_STR_LEN];
   char horizontalWallStr[ ] = "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +";
 
   uint16_t wallInt = 
-    CLASS::horizontalWallStrToInt(horizontalWallStr);
+    CLASS::horzWallStrToInt(horizontalWallStr);
 
   CLASS::initStrFromHorzWallInt(backToHorzWallStr, wallInt);
 
@@ -70,32 +70,39 @@ test(vertWallEncode) {
   assertTrue(strcmp(verticalWallStr, backToVertWallStr) == 0);
 }
 
-void testVertWallArrEncode(void (&toInt)(
+void testWallArrEncode(
+                      void (&toInt)(
                             uint16_t (&intArr)[15],
-                            char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]),
-                       void (&fromInt)(
+                            char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]
+                                   ),
+                      void (&fromInt)(
                             char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN],
-                            uint16_t (&intArr)[15])) { 
-  uint16_t vertWallIntArr[NUM_WALL_INTS_IN_ARR] = {0}; 
+                            uint16_t (&intArr)[15]
+                                     ),
+                      uint8_t offset
+                      ) {
+  uint16_t wallIntArr[NUM_WALL_INTS] = {0};
   
-  char backToMazeText[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN] = {0}; 
-  toInt(vertWallIntArr, mazeText);
-  fromInt(backToMazeText, vertWallIntArr);
+  char backToMazeText[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN] = {0};
+  toInt(wallIntArr, mazeText);
+  fromInt(backToMazeText, wallIntArr);
   
-  for (uint8_t i = 1; i < NUM_MAZE_TEXT_STRS; i += 2) {
-    assertTrue(strcmp(mazeText[i], backToMazeText[i]) == 0); 
+  for (uint8_t i = offset; i < NUM_MAZE_TEXT_STRS; i += 2) {
+    assertTrue(strcmp(mazeText[i], backToMazeText[i]) == 0);
   } 
 }
 
-test(vertWallArrEncode) {
-  testVertWallArrEncode(CLASS::initVertWallIntArrFromMazeText,
-                        CLASS::setMazeTextFromVertWallIntArr);
-}
-
-/*test(horzWallArrEncode) {
-  testWallArrEncode(CLASS::initHorzWallIntArrFromMazeText,
-                    CLASS::setMazeTextFromHorzWallIntArr);
+/*test(vertWallArrEncode) {
+  testWallArrEncode(CLASS::initVertWallIntArrFromMazeText,
+                    CLASS::setMazeTextFromVertWallIntArr,
+                    1);
 }*/
+
+test(horzWallArrEncode) {
+  testWallArrEncode(CLASS::initHorzWallIntArrFromMazeText,
+                    CLASS::setMazeTextFromHorzWallIntArr,
+                    0);
+}
 
 // Coordinates
 #define testEncodeCoord(row, col) { \

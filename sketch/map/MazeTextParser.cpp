@@ -3,8 +3,7 @@
 #define _ MazeTextParser
 
 // Encode and decode horizontal walls
-uint16_t _::horizontalWallStrToInt(
-                                       char string[MAZE_STR_LEN]) {
+uint16_t _::horzWallStrToInt(char string[MAZE_STR_LEN]) {
   // checkIsValidHorzWallStr(string);
 
   uint16_t wallInt;
@@ -93,7 +92,7 @@ void _::initVertWallIntArrFromMazeText(uint16_t (&intArr)[15],
 
 void _::setMazeTextFromVertWallIntArr(
                              char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN],
-                             uint16_t (&intArr)[15]) {
+                             uint16_t (&intArr)[NUM_WALL_INTS]) {
   uint8_t row = 0;
   for (uint8_t i = 1; i < NUM_MAZE_TEXT_STRS; i += 2) {
     initVertWallStrFromIntArr(mazeText[i], intArr, row);
@@ -102,20 +101,49 @@ void _::setMazeTextFromVertWallIntArr(
 }
 
 // Encode and decode horizontal wall arrays
-void _::initHorzWallIntArrFromStrArr(uint16_t (&intArr)[15],
-                                         char (&strArr)[15][MAZE_STR_LEN]) {
-  for (uint8_t i = 0; i < 15; i++) {
-    uint16_t wallInt = horizontalWallStrToInt(strArr[i]);
-    intArr[i] = wallInt;
+
+void _::initHorzWallIntArrFromMazeText(
+                          uint16_t (&intArr)[NUM_WALL_INTS],
+                          char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]) {
+  uint8_t intArrI = 0;
+  uint8_t mazeTextI = 2;
+
+  while (mazeTextI < NUM_MAZE_TEXT_STRS && intArrI < NUM_WALL_INTS ) {
+    uint16_t wallInt = horzWallStrToInt(mazeText[mazeTextI]);
+    intArr[intArrI] = wallInt;
+
+    intArrI++;
+    mazeTextI += 2;
   }
 }
 
-void _::initHorzWallStrArrFromIntArr(char (&strArr)[15][MAZE_STR_LEN],
+/*void _::initHorzWallStrArrFromIntArr(char (&strArr)[15][MAZE_STR_LEN],
                                          uint16_t (&intArr)[15]) {
   for (uint8_t i = 0; i < 15; i++) {
     char wallStr[MAZE_STR_LEN];
     initStrFromHorzWallInt(wallStr, intArr[i]);
     strcpy(strArr[i], wallStr);
+  }
+}*/
+
+void _::setMazeTextFromHorzWallIntArr(
+                             char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN],
+                             uint16_t (&intArr)[NUM_WALL_INTS]) {
+  char horzWall[MAZE_STR_LEN] = "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+";
+
+  strcpy(mazeText[0],                      horzWall);
+  strcpy(mazeText[NUM_MAZE_TEXT_STRS - 1], horzWall);
+
+  uint8_t intArrI = 0;
+  uint8_t mazeTextI = 2;
+
+   while (mazeTextI < NUM_MAZE_TEXT_STRS && intArrI < NUM_WALL_INTS ) {
+    char wallStr[MAZE_STR_LEN] = {0};
+    initStrFromHorzWallInt(wallStr, intArr[intArrI]);
+    strcpy(mazeText[mazeTextI], wallStr);
+
+    intArrI++;
+    mazeTextI += 2;
   }
 }
 
@@ -138,7 +166,7 @@ uint8_t _::getGoal(char (&vertWallStrArr)[16][MAZE_STR_LEN]) {
     for (uint8_t k = 1; k < MAZE_STR_LEN - 1; k += 2) {
       if (vertWallStrArr[i][k] == GOAL_CHAR) {
         uint8_t col = k / 2;
-        return _::coordinatesToInt(i, col);
+        return coordinatesToInt(i, col);
       }
     }
   }
@@ -149,7 +177,12 @@ uint8_t _::getGoal(char (&vertWallStrArr)[16][MAZE_STR_LEN]) {
 // MazeMap
 /*MazeMap _::mazeTextToMazeMap(
                             char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN]) {
+  uint16_t vertWalls[NUM_WALL_INTS];
+  uint16_t horzWalls[NUM_WALL_INTS];
+  uint8_t  goal = getGoal
 
+  initVertWallIntArrFromMazeText(vertWalls, mazeText);
+  initHorzWallIntArrFromMazeText(horzWalls, mazeText);
 }*/
 
 /*static bool _::isValidHorzWallStr(Str string){
