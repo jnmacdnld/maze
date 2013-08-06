@@ -177,15 +177,20 @@ uint8_t _::getGoalFromMazeText(
 }
 
 // MazeMap
-/*MazeMap _::mazeTextToMazeMap(
+MazeMap _::mazeTextToMazeMap(
                             char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN]) {
   uint16_t vertWalls[NUM_WALL_INTS];
   uint16_t horzWalls[NUM_WALL_INTS];
-  uint8_t  goal = getGoalFromMazeText
 
   initVertWallIntArrFromMazeText(vertWalls, mazeText);
   initHorzWallIntArrFromMazeText(horzWalls, mazeText);
-}*/
+
+  uint8_t  goal = getGoalFromMazeText(mazeText);
+
+  MazeMap mazeMap (horzWalls, vertWalls, goal);
+
+  return mazeMap;
+}
 
 /*static bool _::isValidHorzWallStr(Str string){
   // Check correct string length

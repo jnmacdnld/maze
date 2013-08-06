@@ -4,6 +4,8 @@
 #include "tests/map/MazeTextParserTest.cpp"
 #include "map/MazeTextParser.cpp"
 
+#include "map/MazeMap.cpp"
+
 void setup() {
   Serial.begin(9600);
   Serial.println("Started.");

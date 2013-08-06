@@ -134,3 +134,7 @@ test(findGoalInMazeText) {
 
   assertEqual(goalChar, GOAL_CHAR);
 }
+
+test(toMazeMap) {
+  
+}

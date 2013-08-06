@@ -3,6 +3,7 @@
  
 #include "Arduino.h"
 #include <string.h>
+#include "MazeMap.hpp"
 
 /*GENERAL MAZE TEXT CONSTANTS*/
 // Length of a line of maze text
@@ -37,7 +38,7 @@
 
 /*WALL ARRAY CONSTANTS*/
 // Number of integers in a array of wall integers
-#define NUM_WALL_INTS 15         
+#define NUM_WALL_INTS 15
 
 class MazeTextParser {
   public:
@@ -84,7 +85,10 @@ class MazeTextParser {
                             char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]);
 
     // MazeMap
-    // static MazeMap mazeTextToMazeMap();
+    static MazeMap mazeTextToMazeMap(
+                            char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]);
+
+
 
     // Maze text validation
     // static bool isValidHorzWallStr(Str string);
