@@ -12,8 +12,9 @@ class MazeMap {
     bool getIsObstructed(uint8_t node, Direction dir);
 
     uint8_t getGoal();
-    uint16_t* getHorzWallsPtr();
-    uint16_t* getVertWallsPtr();
+
+    void initArrFromHorzWalls(uint16_t (&arr)[15]);
+    void initArrFromVertWalls(uint16_t (&arr)[15]);
 
   private:
     uint16_t horzWalls[15];

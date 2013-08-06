@@ -18,10 +18,12 @@ uint8_t MazeMap::getGoal() {
   return goal;
 }
 
-uint16_t* MazeMap::getHorzWallsPtr() {
-  return horzWalls;
+void MazeMap::initArrFromHorzWalls(uint16_t (&arr)[NUM_WALL_INTS]) {
+  size_t sizeOfWallArr = sizeof arr[0] * NUM_WALL_INTS;
+  memcpy(arr, horzWalls, sizeOfWallArr);
 }
 
-uint16_t* MazeMap::getVertWallsPtr() {
-  return vertWalls;
+void MazeMap::initArrFromVertWalls(uint16_t (&arr)[NUM_WALL_INTS]) {
+  size_t sizeOfWallArr = sizeof arr[0] * NUM_WALL_INTS;
+  memcpy(arr, vertWalls, sizeOfWallArr);
 }

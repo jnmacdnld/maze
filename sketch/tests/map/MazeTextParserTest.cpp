@@ -130,11 +130,20 @@ test(findGoalInMazeText) {
 
   char goalChar = mazeText[(goalRow * 2) + 1][(goalCol * 2) + 1];
 
-  assertNotEqual(goal, 0);
-
+  assertNotEqual(goal, 0); // Assert goal was found
   assertEqual(goalChar, GOAL_CHAR);
 }
 
 test(toMazeMap) {
-  
+  MazeMap map = CLASS::mazeTextToMazeMap(mazeText);
+  char backToMazeText[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN] = {0};
+
+  CLASS::initMazeTextFromMazeMap(backToMazeText, map);
+
+  for (uint8_t i = 0; i < NUM_MAZE_TEXT_STRS; i++) {
+    /*Serial.println(mazeText[i]);
+    Serial.println(backToMazeText[i]);
+    Serial.println();*/
+    assertTrue(strcmp(mazeText[i], backToMazeText[i]) == 0);
+  }
 }

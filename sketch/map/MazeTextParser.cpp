@@ -192,6 +192,29 @@ MazeMap _::mazeTextToMazeMap(
   return mazeMap;
 }
 
+void _::initMazeTextFromMazeMap(char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN],
+                             MazeMap& map) {
+  uint16_t horzWalls[NUM_WALL_INTS] = {0};
+  uint16_t vertWalls[NUM_WALL_INTS] = {0};
+
+  map.initArrFromHorzWalls(horzWalls);
+  map.initArrFromVertWalls(vertWalls);
+
+  uint8_t goal = map.getGoal();
+
+  setMazeTextFromHorzWallIntArr(mazeText, horzWalls);
+  setMazeTextFromVertWallIntArr(mazeText, vertWalls);
+  setMazeTextFromGoal          (mazeText, goal);
+}
+
+void _::setMazeTextFromGoal(char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN],
+                            uint8_t goal) {
+  uint8_t goalRow = getRowFromInt(goal);
+  uint8_t goalCol = getColFromInt(goal);
+
+  mazeText[(goalRow * 2) + 1][(goalCol * 2) + 1] = GOAL_CHAR;
+}
+
 /*static bool _::isValidHorzWallStr(Str string){
   // Check correct string length
   assert(string.size() == MAZE_LN_LEN);

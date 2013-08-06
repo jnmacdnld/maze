@@ -80,13 +80,20 @@ class MazeTextParser {
     static uint8_t getRowFromInt(uint8_t integer);
     static uint8_t getColFromInt(uint8_t integer);
 
-    // Find goal
+    // Goal
     static uint8_t getGoalFromMazeText(
                             char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]);
+    
+    static void setMazeTextFromGoal(char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN],
+                                       uint8_t goal);
 
     // MazeMap
     static MazeMap mazeTextToMazeMap(
                             char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]);
+
+    static void initMazeTextFromMazeMap(
+                              char (&mazeText)[NUM_MAZE_TEXT_LNS][MAZE_STR_LEN],
+                              MazeMap& map);
 
 
 
