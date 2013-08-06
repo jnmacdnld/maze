@@ -23,9 +23,8 @@ uint16_t _::horzWallStrToInt(char string[MAZE_STR_LEN]) {
   return wallInt;
 }
 
-void _::initStrFromHorzWallInt(
-                                  char (&wallStr)[MAZE_STR_LEN],
-                                  uint16_t wallInt) {
+void _::initStrFromHorzWallInt(char (&wallStr)[MAZE_STR_LEN],
+                               uint16_t wallInt) {
   strcpy(wallStr, "+ + + + + + + + + + + + + + + + +");
   
   uint8_t wallIntIndex = 0;
@@ -81,7 +80,8 @@ void _::initVertWallStrFromIntArr(char (&string)[MAZE_STR_LEN],
 }
 
 // Encode and decode vertical wall arrays
-void _::initVertWallIntArrFromMazeText(uint16_t (&intArr)[15],
+void _::initVertWallIntArrFromMazeText(
+                           uint16_t (&intArr)[15],
                            char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]) {
   uint8_t row = 0;
   for (uint8_t i = 1; i < NUM_MAZE_TEXT_STRS; i += 2) {
@@ -103,8 +103,8 @@ void _::setMazeTextFromVertWallIntArr(
 // Encode and decode horizontal wall arrays
 
 void _::initHorzWallIntArrFromMazeText(
-                          uint16_t (&intArr)[NUM_WALL_INTS],
-                          char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]) {
+                           uint16_t (&intArr)[NUM_WALL_INTS],
+                           char (&mazeText)[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN]) {
   uint8_t intArrI = 0;
   uint8_t mazeTextI = 2;
 

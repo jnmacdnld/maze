@@ -44,20 +44,17 @@ class MazeTextParser {
     // Encode and decode horizontal walls
     static uint16_t horzWallStrToInt(char string[MAZE_STR_LEN]);
 
-    static void initStrFromHorzWallInt(
-                                  char (&wallStr)[MAZE_STR_LEN],
-                                  uint16_t wallInt);
+    static void initStrFromHorzWallInt(char (&wallStr)[MAZE_STR_LEN],
+                                       uint16_t wallInt);
 
     // Encode and decode vertical walls
-    static void setIntArrFromVertWallStr(
-                                      uint16_t (&arr)[15], 
-                                      char (&string)[MAZE_STR_LEN],
-                                      uint8_t row);
+    static void setIntArrFromVertWallStr(uint16_t (&arr)[15],
+                                         char (&string)[MAZE_STR_LEN],
+                                         uint8_t row);
 
-    static void initVertWallStrFromIntArr(
-                                      char (&string)[MAZE_STR_LEN],
-                                      uint16_t (&arr)[15],
-                                      uint8_t row);
+    static void initVertWallStrFromIntArr(char (&string)[MAZE_STR_LEN],
+                                          uint16_t (&arr)[15],
+                                          uint8_t row);
 
     // Encode and decode vertical wall arrays
     static void initVertWallIntArrFromMazeText(
