@@ -1,0 +1,16 @@
+{
+	"build_systems":
+	[
+		{
+			"shell_cmd": "make upload",
+			"working_dir": "C:/Users/John/code/maze/sketch"
+		}
+	],
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "C:\\Users\\John\\Documents\\GitHub\\maze"
+		}
+	]
+}

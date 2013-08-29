@@ -1,9 +1,9 @@
 #ifndef MAZEMAP_HPP
 #define MAZEMAP_HPP
 
-typedef uint8_t cell_t;
+#include "Cell.hpp"
 
-enum dir_t {
+enum Direction {
   NORTH,
   EAST,
   SOUTH,
@@ -11,22 +11,22 @@ enum dir_t {
 };
  
 class MazeMap {
-  public:
-    MazeMap(uint16_t (&horzWalls)[15],
-            uint16_t (&vertWalls)[15],
-            uint8_t goal);
+public:
+  MazeMap(uint16_t (&horzWalls)[15],
+          uint16_t (&vertWalls)[15],
+          Cell &goal);
 
-    bool getIsObstructed(cell_t cell, dir_t dir);
+  bool getIsObstructed(Cell cell, Direction dir);
 
-    uint8_t getGoal();
+  Cell getGoal();
 
-    void initArrFromHorzWalls(uint16_t (&arr)[15]);
-    void initArrFromVertWalls(uint16_t (&arr)[15]);
+  void initArrFromHorzWalls(uint16_t (&arr)[15]);
+  void initArrFromVertWalls(uint16_t (&arr)[15]);
 
-  private:
-    uint16_t horzWalls[15];
-    uint16_t vertWalls[15];
-    uint8_t goal;
+private:
+  uint16_t horzWalls[15];
+  uint16_t vertWalls[15];
+  Cell goal;
 };
 
 #endif /* MAZEMAP_HPP */

@@ -1,4 +1,5 @@
 #include "../../map/MazeTextParser.hpp"
+#include "../../map/Cell.hpp"
 #include <string.h>
 #include <Arduino.h>
 #include <ArduinoUnit.h>
@@ -106,31 +107,36 @@ test(horzWallArrEncode) {
 
 // Coordinates
 void testEncodeCoord(uint8_t row, uint8_t col) {
-  cell_t cell = CLASS::coordinatesToCell(row, col);
+  Cell cell (row, col);
   
-  uint8_t decodedRow = CLASS::getRowFromCell(cell);
-  uint8_t decodedCol = CLASS::getColFromCell(cell);
+  uint8_t decodedRow = cell.getRow();
+  uint8_t decodedCol = cell.getCol();
   
   assertEqual(row, decodedRow);
   assertEqual(col, decodedCol);
 }
 
 test(coordsEncode) {
-  testEncodeCoord(4, 5);
   testEncodeCoord(0, 0);
+  testEncodeCoord(0, 1);
+  testEncodeCoord(1, 0);
+  testEncodeCoord(15, 15);
+  testEncodeCoord(4, 5);
 }
 
 // Goal
 
 test(findGoalInMazeText) {
-  cell_t goal = CLASS::getGoalFromMazeText(mazeText);
+  Cell goal = CLASS::getGoalFromMazeText(mazeText);
 
-  uint8_t goalRow = CLASS::getRowFromCell(goal);
-  uint8_t goalCol = CLASS::getColFromCell(goal);
+  uint8_t goalRow = goal.getRow();
+  uint8_t goalCol = goal.getCol();
 
   char goalChar = mazeText[(goalRow * 2) + 1][(goalCol * 2) + 1];
 
-  assertNotEqual(goal, 0); // Assert goal was found
+  bool goalIsStart = goal.getRow() == 0 && goal.getCol() == 0;
+  assertFalse(goalIsStart); // Assert goal was found
+
   assertEqual(goalChar, GOAL_CHAR);
 }
 
