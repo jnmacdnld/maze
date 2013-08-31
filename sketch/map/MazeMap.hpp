@@ -16,7 +16,7 @@ public:
           uint16_t (&vertWalls)[15],
           Cell &goal);
 
-  bool getIsObstructed(Cell cell, Direction dir);
+  bool isBlocked(Cell cell, Direction dir);
 
   Cell getGoal();
 

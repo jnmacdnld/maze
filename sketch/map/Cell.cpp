@@ -1,4 +1,5 @@
 #include "Cell.hpp"
+#include "../error.hpp"
 /*
 cell_t _::coordinatesToCell(uint8_t row, uint8_t col) {
   return (cell_t) ( (row * 16) + col );
@@ -14,6 +15,10 @@ uint8_t _::getColFromCell(cell_t cell) {
 */
 
 Cell::Cell(uint8_t row, uint8_t col) {
+  if (row > 15 || row < 0 || col > 15 || col < 0) {
+    error("Invalid cell coordinates passed to Cell constructor. ");
+  }
+
   cellNumber = (row * 16) + col;
 }
 

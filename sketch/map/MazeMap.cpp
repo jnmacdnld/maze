@@ -11,12 +11,31 @@ MazeMap::MazeMap(uint16_t (&horzWalls)[NUM_WALL_INTS],
   memcpy(this->vertWalls,  vertWalls, sizeOfWallArr);
 }
 
-bool MazeMap::getIsObstructed(Cell cell, Direction dir) {
-  /*uint8_t row = cell
+bool MazeMap::isBlocked(Cell cell, Direction dir) {
+  uint8_t row = cell.getRow();
+  uint8_t col = cell.getCol();
 
-  if (dir == NORTH) {
-    return bitRead(horzWalls[]);
-  }*/
+  if (col == 0 && dir == WEST || 
+      row == 0 && dir == NORTH ||
+      col == 15 && dir == EAST ||
+      row == 15 && dir == SOUTH) {
+    return true;
+  }
+
+  switch (dir) {
+    case NORTH:
+      return bitRead(horzWalls[row - 1], col);
+    case SOUTH:
+      return bitRead(horzWalls[row], col);
+    case EAST:
+      return bitRead(vertWalls[col], row);
+    case WEST:
+      return bitRead(vertWalls[col - 1], row);
+  }
+
+  // Should never be executed
+  Serial.println("Invalid Direction passed to MazeMap::isBlocked");
+  return false; 
 }
 
 Cell MazeMap::getGoal() {

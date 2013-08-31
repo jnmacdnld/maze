@@ -1,12 +1,20 @@
+#ifndef ROBOT_HPP
+#define ROBOT_HPP
+ 
 class Robot {
 public:
-  void move(Direction dir) = 0;
-  bool isObstructed(Direction dir) = 0;
+  virtual ~Robot() {}
+  Robot(Direction facingDirection);
 
-  Direction getFacingDirection() = 0;
-  cell_t getCurrentCell() = 0;
+  virtual void move(Direction dir) = 0;
+  virtual bool isBlocked(Direction dir) = 0;
+
+  virtual Direction getFacingDirection() = 0;
+  virtual Cell getCurrentCell() = 0;
   
 private:
-  cell_t currentCell;
+  Cell currentCell;
   Direction facingDirection;    
 };
+ 
+#endif /* ROBOT_HPP */

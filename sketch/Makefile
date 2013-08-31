@@ -73,6 +73,10 @@ NEWMAINFILE:=$(TMPDIR)/$(PROJNAME).ino.cpp
 
 #our own sourcefiles is the (converted) ino file and any local cpp files
 MYSRCFILES:=$(NEWMAINFILE) $(shell ls *.cpp 2>/dev/null) $(wildcard $(patsubst %,%/*.c,$(MY_LIBS))) $(wildcard $(patsubst %,%/*.cpp,$(MY_LIBS)))
+
+# Add sub-directories
+# MYSRCFILES += ($wildcard map/*.cpp) ($wildcard robot/*.cpp simulation/*.cpp tests/*/*.cpp
+
 MYOBJFILES:=$(addsuffix .o,$(addprefix $(TMPDIR)/,$(notdir $(MYSRCFILES))))
 
 #These source files are the ones forming core.a
@@ -172,6 +176,7 @@ $(TMPDIR)/$(PROJNAME).bin: $(TMPDIR)/$(PROJNAME).elf
 upload: $(TMPDIR)/$(PROJNAME).bin
 #	stty -F $(PORT) cs8 1200 hupcl
 # above is the unix command, for windows the following will work:
+	putty &
 	taskkill /F /IM putty.exe /T
 	mode $(PORT) baud=1200
 	# cmd /c copy /b NUL $(PORT)
