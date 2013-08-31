@@ -1,5 +1,5 @@
-#ifndef CELL_H
-#define CELL_H
+#ifndef CELL_HPP
+#define CELL_HPP
  
 #include <Arduino.h>
 
@@ -16,4 +16,4 @@ private:
                       // ...
 };
  
-#endif /* CELL_H */
+#endif /* CELL_HPP */

@@ -56,7 +56,7 @@ INCLUDES := -I$(ADIR)/$(LIBSAM) -I$(ADIR)/$(CMSIS)/CMSIS/Include/ -I$(ADIR)/$(CM
 INCLUDES += -I$(ADIR)/$(SAM)/cores/arduino -I$(ADIR)/$(SAM)/variants/arduino_due_x
 INCLUDES += $(patsubst %,-I%,$(MY_LIBS))
 
-INCLUDES += $(shell ruby get-includes.rb)
+INCLUDES += $(shell ruby build-utils/get-includes.rb)
 
 #also include the current dir for convenience
 # INCLUDES += -I.
