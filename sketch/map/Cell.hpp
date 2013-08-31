@@ -1,6 +1,8 @@
 #ifndef CELL_H
 #define CELL_H
  
+#include <Arduino.h>
+
 class Cell {
 public:
   Cell(uint8_t row, uint8_t col);

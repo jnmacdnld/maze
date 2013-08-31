@@ -1,5 +1,5 @@
 #include "Cell.hpp"
-#include "../error.hpp"
+#include "error.hpp"
 /*
 cell_t _::coordinatesToCell(uint8_t row, uint8_t col) {
   return (cell_t) ( (row * 16) + col );

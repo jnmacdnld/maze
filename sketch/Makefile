@@ -56,8 +56,10 @@ INCLUDES := -I$(ADIR)/$(LIBSAM) -I$(ADIR)/$(CMSIS)/CMSIS/Include/ -I$(ADIR)/$(CM
 INCLUDES += -I$(ADIR)/$(SAM)/cores/arduino -I$(ADIR)/$(SAM)/variants/arduino_due_x
 INCLUDES += $(patsubst %,-I%,$(MY_LIBS))
 
+INCLUDES += $(shell ruby get-includes.rb)
+
 #also include the current dir for convenience
-INCLUDES += -I.
+# INCLUDES += -I.
 
 #compilation flags common to both c and c++
 COMMON_FLAGS:=-g -Os -w -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -mcpu=cortex-m3  -mthumb
@@ -72,7 +74,12 @@ PROJNAME:=$(shell basename *.ino .ino)
 NEWMAINFILE:=$(TMPDIR)/$(PROJNAME).ino.cpp
 
 #our own sourcefiles is the (converted) ino file and any local cpp files
-MYSRCFILES:=$(NEWMAINFILE) $(shell ls *.cpp 2>/dev/null) $(wildcard $(patsubst %,%/*.c,$(MY_LIBS))) $(wildcard $(patsubst %,%/*.cpp,$(MY_LIBS)))
+MYSRCFILES:=$(NEWMAINFILE) $(wildcard $(patsubst %,%/*.c,$(MY_LIBS))) $(wildcard $(patsubst %,%/*.cpp,$(MY_LIBS)))
+
+# MYSRCFILES += $(shell ls *.cpp 2>/dev/null)
+
+# Add sub-directories
+MYSRCFILES += $(shell find . -name \*.cpp -not -path ./build -and -not -path ./build/core | tr '\n' ' ')
 
 # Add sub-directories
 # MYSRCFILES += ($wildcard map/*.cpp) ($wildcard robot/*.cpp simulation/*.cpp tests/*/*.cpp
@@ -176,11 +183,10 @@ $(TMPDIR)/$(PROJNAME).bin: $(TMPDIR)/$(PROJNAME).elf
 upload: $(TMPDIR)/$(PROJNAME).bin
 #	stty -F $(PORT) cs8 1200 hupcl
 # above is the unix command, for windows the following will work:
-	putty &
-	taskkill /F /IM putty.exe /T
+	$(shell taskkill /f /im putty.exe /fi "memusage gt 40" 2>NUL)
 	mode $(PORT) baud=1200
 	# cmd /c copy /b NUL $(PORT)
 	sleep 1
 	$(ADIR)/tools/bossac -p $(PORT) -U false -e -w $(VERIFY) -b $(TMPDIR)/$(PROJNAME).bin -R
-	"C:/Program Files (x86)/PuTTY/putty.exe" -load arduino
+	"C:/Program Files (x86)/PuTTY/putty.exe" -load arduino &
 

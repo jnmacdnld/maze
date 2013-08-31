@@ -1,6 +1,8 @@
 #include "MazeMap.hpp"
 #include <Arduino.h>
 #include "Cell.hpp"
+#include "MazeTextParser.hpp"
+#include "Direction.hpp"
 
 MazeMap::MazeMap(uint16_t (&horzWalls)[NUM_WALL_INTS],
                  uint16_t (&vertWalls)[NUM_WALL_INTS],

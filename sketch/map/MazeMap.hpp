@@ -2,13 +2,7 @@
 #define MAZEMAP_HPP
 
 #include "Cell.hpp"
-
-enum Direction {
-  NORTH,
-  EAST,
-  SOUTH,
-  WEST
-};
+#include "Direction.hpp"
  
 class MazeMap {
 public:

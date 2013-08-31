@@ -1,5 +1,5 @@
-#include "../../map/MazeTextParser.hpp"
-#include "../../map/Cell.hpp"
+#include "MazeTextParser.hpp"
+#include "Cell.hpp"
 #include <string.h>
 #include <Arduino.h>
 #include <ArduinoUnit.h>

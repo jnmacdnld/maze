@@ -1,9 +1,9 @@
 #ifndef SIMULATIONROBOT_HPP
 #define SIMULATIONROBOT_HPP
 
-#include "../robot/Robot.hpp"
+#include "Robot.hpp"
 #include "Simulation.hpp"
-#include "../map/MazeMap.hpp"
+#include "MazeMap.hpp"
  
 class SimulationRobot : Robot {
 public:

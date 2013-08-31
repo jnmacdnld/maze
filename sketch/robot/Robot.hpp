@@ -1,5 +1,8 @@
 #ifndef ROBOT_HPP
 #define ROBOT_HPP
+
+#include "Cell.hpp"
+#include "Direction.hpp"
  
 class Robot {
 public:

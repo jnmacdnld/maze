@@ -1,6 +1,6 @@
 #include "SimulationRobot.hpp"
-#include "../map/MazeMap.hpp"
-#include "../robot/Robot.hpp"
+#include "MazeMap.hpp"
+#include "Robot.hpp"
 
 SimulationRobot::SimulationRobot(Simulation &sim, MazeMap &maze) : 
 sim(&sim),

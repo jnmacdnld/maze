@@ -1,3 +1,3 @@
-#include "../../simulation/SimulationRobot.hpp"
+#include "SimulationRobot.hpp"
 
 #include <ArduinoUnit.h>
