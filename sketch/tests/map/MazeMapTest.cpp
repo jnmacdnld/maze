@@ -63,7 +63,7 @@ private:
   Cell cell;
 };
 
-test(mazeMapIsObstructed) {
+test(mazeMapIsBlocked) {
   TestCell cells[] = {
     TestCell(0,  0,  true,  false, true,  true),
     TestCell(0,  15, true,  true,  false, false),
