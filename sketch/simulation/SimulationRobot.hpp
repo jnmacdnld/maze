@@ -9,7 +9,7 @@ class SimulationRobot : Robot {
 public:
   SimulationRobot(Simulation &sim, MazeMap &maze);
 
-  virtual bool isBlocked(Direction dir);
+  virtual bool getIsBlocked(Direction dir);
 
 private:
   Simulation* sim;

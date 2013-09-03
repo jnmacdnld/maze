@@ -9,6 +9,6 @@ Robot(EAST) {
 
 }
 
-bool SimulationRobot::isBlocked(Direction dir) {
-  return (*maze).isBlocked( getCurrentCell(), dir );
+bool SimulationRobot::getIsBlocked(Direction dir) {
+  return (*maze).getIsBlocked( getCurrentCell(), dir );
 }

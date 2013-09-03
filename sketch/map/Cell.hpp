@@ -6,8 +6,11 @@
 class Cell {
 public:
   Cell(uint8_t row, uint8_t col);
+
   uint8_t getRow();
   uint8_t getCol();
+
+  bool equals(Cell &cell);
 
 private:
   uint8_t cellNumber; // The number of the cell; the cells are numbered like so:

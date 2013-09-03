@@ -10,7 +10,7 @@ public:
   Robot(Direction facingDirection);
 
   virtual void move(Direction dir) = 0;
-  virtual bool isBlocked(Direction dir) = 0;
+  virtual bool getIsBlocked(Direction dir) = 0;
 
   virtual Direction getFacingDirection() = 0;
   virtual Cell getCurrentCell() = 0;

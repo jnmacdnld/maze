@@ -2,8 +2,12 @@
 #include "Cell.hpp"
 #include "MazeTextParser.hpp"
 
+#include "mazeText.hpp"
+
 #include <Arduino.h>
 #include "ArduinoUnit.h"
+
+MazeMap maze = MazeTextParser::mazeTextToMazeMap(mazeText);
 
 class TestCell {
 public: 
@@ -26,46 +30,6 @@ private:
 };
 
 test(mazeMapIsBlocked) {
-  char mazeText[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN] = {
-    "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+",
-    "|  G  | |     | | |       |     |",
-    "+-+-+ + +-+-+-+-+-+-+-+ +-+ +-+ +",
-    "| |     |     |   |         |   |",
-    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
-    "| |   | |     | | |             |",
-    "+-+-+ + +-+-+-+-+-+-+-+ +-+ +-+ +",
-    "| |     |     |   |         |   |",
-    "+-+-+ + +-+-+-+-+-+-+-+ +-+ +-+ +",
-    "| |   | |     | | |             |",
-
-    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
-    "| |   | |     | | |             |",
-    "+-+-+ + +-+ +-+-+-+-+ + +-+ +-+ +",
-    "| |     |     | | |             |",
-    "+-+-+ + +-+-+ +-+-+-+ + +-+ +-+ +",
-    "| |   | |     |   |     |       |",
-    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
-    "| |     |     |   |         |   |",
-    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
-    "| |   | |     | | |             |",
-
-    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
-    "| |   | |     | | |     |       |",
-    "+-+-+ + +-+-+-+-+-+-+-+ +-+ +-+ +",
-    "| |   | |       | |         |   |",
-    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
-    "| |     |     |   |         |   |",
-    "+-+-+ + +-+-+-+-+-+-+-+ +-+ +-+ +",
-    "| |   | |   |   | |     |       |",
-    "+-+-+ + + +-+-+-+-+-+ + +-+ +-+ +",
-    "| |     |     |   |         |   |",
-
-    "+-+-+ + +-+-+-+-+-+-+ + +-+ +-+ +",
-    "| |   | | |   | | | |   |       |",
-    "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+"
-  };
-
-  MazeMap maze = MazeTextParser::mazeTextToMazeMap(mazeText);
   TestCell cells[] = {
     TestCell(0,  0,  true,  false, true,  true),
     TestCell(0,  15, true,  true,  false, false),
@@ -87,11 +51,21 @@ test(mazeMapIsBlocked) {
     Cell cell = testCell.getCell();
 
     for (int i = 0; i <= WEST; i++) {
-      assertTrue( maze.isBlocked(cell, (Direction) i) == testCell.isWall[i] );
-      /*Serial.print( maze.isBlocked(cell, (Direction) i) );
+      assertTrue( maze.getIsBlocked(cell, (Direction) i) == testCell.isWall[i] );
+      /*Serial.print( maze.getIsBlocked(cell, (Direction) i) );
       Serial.print(" ");
       Serial.print( testCell.isWall[i] );
       Serial.println();*/
     }
   }
+}
+
+test(mazeMapGoal) {
+  uint16_t horzWalls[15] = {0};
+  uint16_t vertWalls[15] = {0};
+  Cell goal (3, 14);
+
+  MazeMap map (horzWalls, vertWalls, goal);
+
+  assertTrue( map.getGoal().equals(goal) );
 }

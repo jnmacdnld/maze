@@ -74,12 +74,12 @@ PROJNAME:=$(shell basename *.ino .ino)
 NEWMAINFILE:=$(TMPDIR)/$(PROJNAME).ino.cpp
 
 #our own sourcefiles is the (converted) ino file and any local cpp files
-MYSRCFILES:=$(NEWMAINFILE) $(wildcard $(patsubst %,%/*.c,$(MY_LIBS))) $(wildcard $(patsubst %,%/*.cpp,$(MY_LIBS)))
+MYSRCFILES := $(NEWMAINFILE) $(wildcard $(patsubst %,%/*.c,$(MY_LIBS))) $(wildcard $(patsubst %,%/*.cpp,$(MY_LIBS)))
 
 # MYSRCFILES += $(shell ls *.cpp 2>/dev/null)
 
 # Add sub-directories
-MYSRCFILES += $(shell find . -name \*.cpp -not -path ./build -and -not -path ./build/core | tr '\n' ' ')
+MYSRCFILES += $(shell ruby build-utils/get-sources.rb)
 
 # Add sub-directories
 # MYSRCFILES += ($wildcard map/*.cpp) ($wildcard robot/*.cpp simulation/*.cpp tests/*/*.cpp

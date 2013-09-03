@@ -13,14 +13,14 @@ MazeMap::MazeMap(uint16_t (&horzWalls)[NUM_WALL_INTS],
   memcpy(this->vertWalls,  vertWalls, sizeOfWallArr);
 }
 
-bool MazeMap::isBlocked(Cell cell, Direction dir) {
+bool MazeMap::getIsBlocked(Cell cell, Direction dir) {
   uint8_t row = cell.getRow();
   uint8_t col = cell.getCol();
 
-  if (col == 0 && dir == WEST || 
-      row == 0 && dir == NORTH ||
-      col == 15 && dir == EAST ||
-      row == 15 && dir == SOUTH) {
+  if (col == 0 && dir == WEST ||    // If on the edge of the maze
+      row == 0 && dir == NORTH ||   // 
+      col == 15 && dir == EAST ||   //
+      row == 15 && dir == SOUTH) {  //
     return true;
   }
 
@@ -36,7 +36,7 @@ bool MazeMap::isBlocked(Cell cell, Direction dir) {
   }
 
   // Should never be executed
-  Serial.println("Invalid Direction passed to MazeMap::isBlocked");
+  Serial.println("Invalid Direction passed to MazeMap::getIsBlocked");
   return false; 
 }
 

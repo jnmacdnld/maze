@@ -30,3 +30,6 @@ uint8_t Cell::getCol() {
   return cellNumber % 16;
 }
 
+bool Cell::equals(Cell &cell) {
+  return getCol() == cell.getCol() && getRow() == cell.getRow();
+}
