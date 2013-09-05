@@ -1,11 +1,11 @@
 #include "SimulationRobot.hpp"
 #include "MazeMap.hpp"
-#include "Robot.hpp"
+#include "RobotBase.hpp"
 
 SimulationRobot::SimulationRobot(Simulation &sim, MazeMap &maze) : 
 sim(&sim),
 maze(&maze),
-Robot(EAST) {
+RobotBase(EAST) {
 
 }
 

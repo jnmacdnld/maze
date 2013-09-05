@@ -6,18 +6,14 @@
  
 class Robot {
 public:
-  virtual ~Robot() {}
-  Robot(Direction facingDirection);
-
   virtual void move(Direction dir) = 0;
   virtual bool getIsBlocked(Direction dir) = 0;
 
   virtual Direction getFacingDirection() = 0;
+  virtual void setFacingDirection() = 0;
+
   virtual Cell getCurrentCell() = 0;
-  
-private:
-  Cell currentCell;
-  Direction facingDirection;    
+  virtual void setCurrentCell(Cell &cell) = 0;
 };
  
 #endif /* ROBOT_HPP */

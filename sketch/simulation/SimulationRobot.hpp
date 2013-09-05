@@ -1,11 +1,11 @@
 #ifndef SIMULATIONROBOT_HPP
 #define SIMULATIONROBOT_HPP
 
-#include "Robot.hpp"
+#include "RobotBase.hpp"
 #include "Simulation.hpp"
 #include "MazeMap.hpp"
  
-class SimulationRobot : Robot {
+class SimulationRobot : RobotBase {
 public:
   SimulationRobot(Simulation &sim, MazeMap &maze);
 
