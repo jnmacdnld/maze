@@ -19,7 +19,7 @@ Cell::Cell(uint8_t row, uint8_t col) {
     error("Invalid cell coordinates passed to Cell constructor. ");
   }
 
-  cellNumber = (row * 16) + col;
+  setCellNumberFromCoords(row, col);
 }
 
 uint8_t Cell::getRow() {
@@ -30,6 +30,26 @@ uint8_t Cell::getCol() {
   return cellNumber % 16;
 }
 
+void Cell::setCol(uint8_t col) {
+  setCellNumberFromCoords( getRow(), col );
+}
+
+void Cell::setRow(uint8_t row) {
+  setCellNumberFromCoords( row, getCol() );
+}
+
 bool Cell::equals(Cell &cell) {
   return getCol() == cell.getCol() && getRow() == cell.getRow();
+}
+
+void Cell::setCellNumberFromCoords(uint8_t row, uint8_t col) {
+  cellNumber = (row * 16) + col;
+}
+
+void Cell::print() {
+  Serial.print("(");
+  Serial.print( getRow() );
+  Serial.print(", ");
+  Serial.print( getCol() );
+  Serial.print(")");
 }

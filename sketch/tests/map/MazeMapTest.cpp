@@ -7,8 +7,6 @@
 #include <Arduino.h>
 #include "ArduinoUnit.h"
 
-MazeMap maze = MazeTextParser::mazeTextToMazeMap(mazeText);
-
 class TestCell {
 public: 
   TestCell(uint8_t row, uint8_t col, bool wallNorth, bool wallEast,

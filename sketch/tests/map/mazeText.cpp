@@ -38,3 +38,5 @@ char mazeText[NUM_MAZE_TEXT_STRS][MAZE_STR_LEN] = {
     "| |   | | |   | | | |   |       |",
     "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+"
 };
+
+MazeMap maze = MazeTextParser::mazeTextToMazeMap(mazeText);

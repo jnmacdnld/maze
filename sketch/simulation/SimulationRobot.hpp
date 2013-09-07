@@ -5,11 +5,13 @@
 #include "Simulation.hpp"
 #include "MazeMap.hpp"
  
-class SimulationRobot : RobotBase {
+class SimulationRobot : public RobotBase {
 public:
-  SimulationRobot(Simulation &sim, MazeMap &maze);
+  SimulationRobot(Direction dir, Simulation &sim, MazeMap &maze);
 
-  virtual bool getIsBlocked(Direction dir);
+  void move(Direction dir);
+
+  bool getIsBlocked(Direction dir);
 
 private:
   Simulation* sim;

@@ -22,3 +22,17 @@ void RobotBase::setCurrentCell(Cell &cell) {
   currentCell = cell;
 }
 
+void RobotBase::setRow(uint8_t row) {
+  currentCell = Cell( row, getCol() );
+}
+
+void RobotBase::setCol(uint8_t col) {
+  currentCell = Cell( getRow(), col );
+}
+
+uint8_t RobotBase::getRow() {
+  return getCurrentCell().getRow();
+}
+uint8_t RobotBase::getCol() {
+  return getCurrentCell().getCol();
+}
